@@ -583,7 +583,7 @@ cdef class RandomState:
 
     Parameters
     ----------
-    seed : {None, int, array_like}, optional
+    seed : int or array_like, optional
         Random seed initializing the pseudo-random number generator.
         Can be an integer, an array (or other sequence) of integers of
         any length, or ``None`` (the default).
@@ -992,7 +992,7 @@ cdef class RandomState:
 
         Returns
         --------
-        samples : 1-D ndarray, shape (size,)
+        out : 1-D ndarray, shape (size,)
             The generated random samples
 
         Raises
@@ -1158,7 +1158,7 @@ cdef class RandomState:
         low : float, optional
             Lower boundary of the output interval.  All values generated will be
             greater than or equal to low.  The default value is 0.
-        high : float
+        high : float, optional
             Upper boundary of the output interval.  All values generated will be
             less than high.  The default value is 1.0.
         size : int or tuple of ints, optional
@@ -1301,7 +1301,7 @@ cdef class RandomState:
 
         Returns
         -------
-        Z : ndarray or float
+        out : ndarray or float
             A ``(d0, d1, ..., dn)``-shaped array of floating-point samples from
             the standard normal distribution, or a single such float if
             no parameters were supplied.
@@ -1429,7 +1429,9 @@ cdef class RandomState:
         Returns
         -------
         out : float or ndarray
-            Drawn samples.
+            Samples drawn from the Standard Normal distribution.  Returns an array 
+	    of shape 'size' containing float values, or a single float value if 'size' 
+	    is not specified.
 
         Examples
         --------
@@ -1464,10 +1466,11 @@ cdef class RandomState:
 
         Parameters
         ----------
-        loc : float
-            Mean ("centre") of the distribution.
-        scale : float
-            Standard deviation (spread or "width") of the distribution.
+        loc : float, optional
+            Mean ("centre") of the distribution.  The default value is 0.
+        scale : float, optional
+            Standard deviation (spread or "width") of the distribution.  The
+	    default value is 1.
         size : int or tuple of ints, optional
             Output shape.  If the given shape is, e.g., ``(m, n, k)``, then
             ``m * n * k`` samples are drawn.  Default is None, in which case a
@@ -1582,8 +1585,9 @@ cdef class RandomState:
 
         Returns
         -------
-        out : ndarray
-            Array of the given shape, containing values drawn from a
+        out : ndarray or int
+            Samples drawn from the given beta distribution.  Returns an array of floats 
+	    with shape 'size'.  If 'size is not provided, a single float value is returned.
             Beta distribution.
 
         """
@@ -1633,8 +1637,9 @@ cdef class RandomState:
 
         Parameters
         ----------
-        scale : float
-            The scale parameter, :math:`\\beta = 1/\\lambda`.
+        scale : float, optional
+            The scale parameter, :math:`\\beta = 1/\\lambda`.  The default value
+	    is 1.
         size : int or tuple of ints, optional
             Output shape.  If the given shape is, e.g., ``(m, n, k)``, then
             ``m * n * k`` samples are drawn.  Default is None, in which case a
@@ -1686,8 +1691,10 @@ cdef class RandomState:
 
         Returns
         -------
-        out : float or ndarray
-            Drawn samples.
+        out : ndarray or float
+            Float samples drawn from the standard exponential distribution.  Returns
+	    an ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
 
         Examples
         --------
@@ -1719,8 +1726,10 @@ cdef class RandomState:
 
         Returns
         -------
-        samples : ndarray or scalar
-            The drawn samples.
+        out : ndarray or float
+            Float samples drawn from the given Standard Gamma distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
 
         See Also
         --------
@@ -1806,8 +1815,10 @@ cdef class RandomState:
 
         Returns
         -------
-        out : ndarray, float
-            Returns one sample unless `size` parameter is specified.
+        out : ndarray or float
+            Float samples drawn from the given Gamma distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
 
         See Also
         --------
@@ -1905,8 +1916,10 @@ cdef class RandomState:
 
         Returns
         -------
-        samples : {ndarray, scalar}
-            Samples from the Fisher distribution.
+        out : ndarray or float
+            Float samples drawn from the given Fisher distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
 
         See Also
         --------
@@ -2007,9 +2020,10 @@ cdef class RandomState:
 
         Returns
         -------
-        samples : scalar or ndarray
-            Drawn samples.
-
+        out : ndarray or float
+            Float samples drawn from the given noncentral Fisher distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
         Notes
         -----
         When calculating the power of an experiment (power = probability of
@@ -2099,9 +2113,10 @@ cdef class RandomState:
 
         Returns
         -------
-        output : ndarray
-            Samples drawn from the distribution, packed in a `size`-shaped
-            array.
+        out : ndarray or float
+            Float samples drawn from the given chi-squared distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
 
         Raises
         ------
@@ -2269,8 +2284,10 @@ cdef class RandomState:
 
         Returns
         -------
-        samples : ndarray or scalar
-            The drawn samples.
+        out : ndarray or float
+            Float samples drawn from the Standard Cauchy distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
 
         Notes
         -----
@@ -2337,8 +2354,10 @@ cdef class RandomState:
 
         Returns
         -------
-        samples : ndarray or scalar
-            Drawn samples.
+        out : ndarray or scalar
+            Float samples drawn from the given Standard T distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
 
         Notes
         -----
@@ -2447,8 +2466,11 @@ cdef class RandomState:
 
         Returns
         -------
-        samples : scalar or ndarray
-            The returned samples, which are in the interval [-pi, pi].
+        out : ndarray or float
+            Float samples drawn from the given von Mises distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
+            The returned samples are in the interval [-pi, pi].
 
         See Also
         --------
@@ -2546,6 +2568,13 @@ cdef class RandomState:
             ``m * n * k`` samples are drawn.  Default is None, in which case a
             single value is returned.
 
+	Returns
+	-------
+	out : ndarray or float
+            Float samples drawn from the given Lomax distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
+
         See Also
         --------
         scipy.stats.distributions.lomax.pdf : probability density function,
@@ -2639,6 +2668,12 @@ cdef class RandomState:
             Output shape.  If the given shape is, e.g., ``(m, n, k)``, then
             ``m * n * k`` samples are drawn.  Default is None, in which case a
             single value is returned.
+
+	Returns
+	-------
+            Float samples drawn from the given Weibull distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
 
         See Also
         --------
@@ -2738,8 +2773,11 @@ cdef class RandomState:
 
         Returns
         -------
-        samples : {ndarray, scalar}
-            The returned samples lie in [0, 1].
+        out : ndarray, float
+            Float samples drawn from the given power distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
+            The returned samples lie on the interval [0, 1].
 
         Raises
         ------
@@ -2843,10 +2881,10 @@ cdef class RandomState:
 
         Parameters
         ----------
-        loc : float
-            The position, :math:`\\mu`, of the distribution peak.
-        scale : float
-            :math:`\\lambda`, the exponential decay.
+        loc : float, optional
+            The position, :math:`\\mu`, of the distribution peak.  The default value is 0.
+        scale : float, optional
+            :math:`\\lambda`, the exponential decay.  The default value is 1.
         size : int or tuple of ints, optional
             Output shape.  If the given shape is, e.g., ``(m, n, k)``, then
             ``m * n * k`` samples are drawn.  Default is None, in which case a
@@ -2937,10 +2975,10 @@ cdef class RandomState:
 
         Parameters
         ----------
-        loc : float
-            The location of the mode of the distribution.
-        scale : float
-            The scale parameter of the distribution.
+        loc : float, optional
+            The location of the mode of the distribution.  The default value is 0.
+        scale : float, optional
+            The scale parameter of the distribution.  The default value is 1.
         size : int or tuple of ints, optional
             Output shape.  If the given shape is, e.g., ``(m, n, k)``, then
             ``m * n * k`` samples are drawn.  Default is None, in which case a
@@ -2948,8 +2986,10 @@ cdef class RandomState:
 
         Returns
         -------
-        out : ndarray
-            The samples
+        out : ndarray or float
+            Float samples drawn from the given Gumbel distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
 
         See Also
         --------
@@ -3070,9 +3110,12 @@ cdef class RandomState:
 
         Parameters
         ----------
-        loc : float
+        loc : float, optional
+            The location of the mode of the distribution.  The default value is 0.
 
-        scale : float > 0.
+        scale : float > 0, optional
+	    The scale parameter of the distribution.  The default value is 1.
+
 
         size : int or tuple of ints, optional
             Output shape.  If the given shape is, e.g., ``(m, n, k)``, then
@@ -3081,8 +3124,10 @@ cdef class RandomState:
 
         Returns
         -------
-        samples : {ndarray, scalar}
-                  where the values are all integers in  [0, n].
+        samples : ndarray or float
+            	  Float samples drawn from the given Logistic distribution.  Returns an
+	    	  ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    	  value is returned.
 
         See Also
         --------
@@ -3163,10 +3208,11 @@ cdef class RandomState:
 
         Parameters
         ----------
-        mean : float
-            Mean value of the underlying normal distribution
-        sigma : float, > 0.
-            Standard deviation of the underlying normal distribution
+        mean : float, optional
+            Mean value of the underlying normal distribution.  The default value is 0.
+        sigma : float, > 0, optional
+            Standard deviation of the underlying normal distribution.  The default
+	    value is 1.
         size : int or tuple of ints, optional
             Output shape.  If the given shape is, e.g., ``(m, n, k)``, then
             ``m * n * k`` samples are drawn.  Default is None, in which case a
@@ -3175,8 +3221,9 @@ cdef class RandomState:
         Returns
         -------
         samples : ndarray or float
-            The desired samples. An array of the same shape as `size` if given,
-            if `size` is None a float is returned.
+            Float samples drawn from the given log-normal distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
 
         See Also
         --------
@@ -3285,8 +3332,8 @@ cdef class RandomState:
 
         Parameters
         ----------
-        scale : scalar
-            Scale, also equals the mode. Should be >= 0.
+        scale : scalar, optional
+            Scale, also equals the mode. Should be >= 0.  The default value is 1.
         size : int or tuple of ints, optional
             Output shape.  If the given shape is, e.g., ``(m, n, k)``, then
             ``m * n * k`` samples are drawn.  Default is None, in which case a
@@ -3379,8 +3426,11 @@ cdef class RandomState:
 
         Returns
         -------
-        samples : ndarray or scalar
-            Drawn sample, all greater than zero.
+        out : ndarray or float
+            Float samples drawn from the given Wald distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
+            All samples > 0.
 
         Notes
         -----
@@ -3463,6 +3513,9 @@ cdef class RandomState:
         Returns
         -------
         samples : ndarray or scalar
+            Float samples drawn from the given triangular distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
             The returned samples all lie in the interval [left, right].
 
         Notes
@@ -3549,8 +3602,11 @@ cdef class RandomState:
 
         Returns
         -------
-        samples : {ndarray, scalar}
-                  where the values are all integers in  [0, n].
+        out : ndarray or int
+            Integer samples drawn from the given binomial distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single int
+	    value is returned.
+            Samples are all on the interval [0, n].
 
         See Also
         --------
@@ -3661,17 +3717,18 @@ cdef class RandomState:
 
         Returns
         -------
-        samples : int or ndarray of ints
-            Drawn samples.
-
+        samples : ndarray or int
+            Integer samples drawn from the given negative binomial distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single int
+	    value is returned.
         Notes
         -----
         The probability density for the Negative Binomial distribution is
 
-        .. math:: P(N;n,p) = \\binom{N+n-1}{n-1}p^{n}(1-p)^{N},
+        .. math:: P(N;n,p) = \\binom{N+n-1}{n-1}(1-p)^{n}p^{N},
 
         where :math:`n-1` is the number of successes, :math:`p` is the probability
-        of success, and :math:`N+n-1` is the number of trials.
+        of failure, and :math:`N+n-1` is the number of trials.
 
         The negative binomial distribution gives the probability of n-1 successes
         and N failures in N+n-1 trials, and success on the (N+n)th trial.
@@ -3745,8 +3802,8 @@ cdef class RandomState:
 
         Parameters
         ----------
-        lam : float
-            Expectation of interval, should be >= 0.
+        lam : float, optional
+            Expectation of interval, should be >= 0.  The default value is 1.
         size : int or tuple of ints, optional
             Output shape.  If the given shape is, e.g., ``(m, n, k)``, then
             ``m * n * k`` samples are drawn.  Default is None, in which case a
@@ -3832,8 +3889,10 @@ cdef class RandomState:
 
         Returns
         -------
-        samples : scalar or ndarray
-            The returned samples are greater than or equal to one.
+        samples : ndarray or float
+            Float samples drawn from the given Zipf distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
 
         See Also
         --------
@@ -3923,9 +3982,10 @@ cdef class RandomState:
 
         Returns
         -------
-        out : ndarray
-            Samples from the geometric distribution, shaped according to
-            `size`.
+        out : ndarray or float
+            Float samples drawn from the given geometric distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
 
         Examples
         --------
@@ -3989,8 +4049,11 @@ cdef class RandomState:
 
         Returns
         -------
-        samples : ndarray or scalar
-            The values are all integers in  [0, n].
+        out : ndarray or int
+            Integer samples drawn from the given hypergeometric distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single int
+	    value is returned.
+            The values are all integers on interval [0, n].
 
         See Also
         --------
@@ -4104,8 +4167,10 @@ cdef class RandomState:
 
         Returns
         -------
-        samples : {ndarray, scalar}
-                  where the values are all integers in  [0, n].
+        out : ndarray or float
+            Float samples drawn from the given Standard Gamma distribution.  Returns an
+	    ndarray with shape 'size'.  If 'size' is not provided, a single float
+	    value is returned.
 
         See Also
         --------
